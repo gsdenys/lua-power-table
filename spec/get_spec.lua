@@ -3,49 +3,54 @@ require "busted.runner"()
 describe("[Get]", function()
     local table = require "ptable"
 
-    describe("empty table", function()
+    describe("Empty table", function()
         local empty_table = table({})
         local value = empty_table:get("somme-key")
 
-        it("should have nil value", function() assert.Nil(value) end)
+        it("should return nil value", function() assert.Nil(value) end)
     end)
 
-    describe("numeric table with pairs", function()
+    describe("Numeric table with pairs", function()
         local table_with_pairs = table({a = 1, b = 2, c = 3})
-        local value = table_with_pairs:get("a")
+        local key = "a"
+        local rvalue = 1
 
-        it("should not have nil value", function()
-            assert.is_not.Nil(value)
-        end)
+        local value = table_with_pairs:get(key)
 
-        it("should be a number",
+        it("should not return nil value for" .. key,
+           function() assert.is_not.Nil(value) end)
+
+        it("should return a number",
            function() assert.equal(type(value), "number") end)
 
-        it("should have value equal 1", function() assert.equal(1, value) end)
+        it("should return " .. rvalue, function() assert.equal(1, value) end)
     end)
 
-    describe("string table with pairs", function()
+    describe("String table with pairs", function()
         local table_with_pairs = table({a = "one", b = "two", c = "three"})
-        local value = table_with_pairs:get("a")
+        local key = "a"
+        local rvalue = "one"
 
-        it("should not have nil value", function()
-            assert.is_not.Nil(value)
-        end)
+        local value = table_with_pairs:get(key)
 
-        it("should be a number",
+        it("should not return nil value",
+           function() assert.is_not.Nil(value) end)
+
+        it("should return a number",
            function() assert.equal(type(value), "string") end)
 
-        it("should have value equal 1",
-           function() assert.equal("one", value) end)
+        it("should return " .. rvalue, function()
+            assert.equal("one", value)
+        end)
     end)
 
-    describe("table with pairs and tables", function()
+    describe("Table with pairs with tables", function()
         local table_with_pairs = table({a = {a = 1}, b = 2, c = {c = {c = 3}}})
+
         local value = table_with_pairs:get("c")
 
-        it("should not have nil value", function()
-            assert.is_not.Nil(value)
-        end)
+        it("should not return nil value",
+           function() assert.is_not.Nil(value) end)
 
         it("should be a table",
            function() assert.equal(type(value), "table") end)

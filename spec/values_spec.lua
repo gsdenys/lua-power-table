@@ -18,7 +18,7 @@ local function equals(keys, compare)
 end
 
 describe("[values]", function()
-    local table = require "table-basics"
+    local table = require "ptable"
 
     describe("empty table", function()
         local empty_table = table({})

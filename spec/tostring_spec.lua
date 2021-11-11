@@ -1,7 +1,7 @@
 require "busted.runner"()
 
 describe("[tostring]", function()
-    local table = require "table-basics"
+    local table = require "ptable"
 
     describe("empty table", function()
         local empty_table = table({})

@@ -15,6 +15,8 @@ function table:merge(t, overwrite) return basic.merge(self, t, overwrite) end
 
 function table:equals(t) return basic.equals(self, t) end
 
+function table:size() return basic.size(self) end
+
 function table:tostring() return basic.tostring(self) end
 
 function table:keys() return kv.keys(self) end

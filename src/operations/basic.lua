@@ -1,7 +1,14 @@
 local format = string.format
-local concat = string.concat
+local concat = table.concat
 
 local TABLE_NAME = "ptable"
+
+local function size (t)
+    local i = 0
+    for k in pairs(t) do i = i + 1 end
+    return i
+end
+
 
 local function get(tbl, key)
     local value = tbl[key]
@@ -17,9 +24,17 @@ local function get(tbl, key)
 end
 
 local function equals(tbl, compare)
-    if #tbl ~= #compare then return false end
+    if size(tbl) ~= size(compare) then return false end
 
-    for k, v in pairs(tbl) do if compare[k] ~= v then return false end end
+    for k, v in pairs(tbl) do
+        if type(v) ~= type(compare[k]) then return false end
+
+        if type(v) == "table" then
+            if not equals(v, compare[k]) then return false end
+        else
+            if compare[k] ~= v then return false end
+        end
+    end
 
     return true
 end
