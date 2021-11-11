@@ -3,7 +3,6 @@ local concat = string.concat
 
 local TABLE_NAME = "ptable"
 
-
 local function get(tbl, key)
     local value = tbl[key]
 
@@ -17,15 +16,32 @@ local function get(tbl, key)
     return value
 end
 
+local function equals(tbl, compare)
+    if #tbl ~= #compare then return false end
+
+    for k, v in pairs(tbl) do if compare[k] ~= v then return false end end
+
+    return true
+end
+
 local function clone(tbl)
     local copy = require(TABLE_NAME)({})
 
     for k, v in pairs(tbl) do
-        if type(v) == "table" then
-            v = clone(v)
-        end
+        if type(v) == "table" then v = clone(v) end
 
-        copy:insert(k,v)
+        copy:insert(k, v)
+    end
+end
+
+local function merge(t, tbl, overwrite)
+    overwrite = overwrite or true
+
+    for index, value in ipairs(tbl) do
+        if t[index] == nil or overwrite then
+            if type(value) == "table" then value = clone(value) end
+            t[index] = value
+        end
     end
 end
 
@@ -43,11 +59,9 @@ local function tostring(t, tab)
     for k, v in pairs(t) do
         if v == nil then
             v = ''
-
         elseif type(v) == "table" then
             ---@diagnostic disable: undefined-field
             b[i] = format(itemstr, tab, k, tostring(v, tab .. "  "))
-
         elseif type(v) ~= "userdata" then
             b[i] = format(itemstr, tab, k, v)
         end
@@ -60,4 +74,10 @@ local function tostring(t, tab)
     return concat(b, "\n")
 end
 
-return {get = get, clone = clone, tostring = tostring}
+return {
+    get = get,
+    clone = clone,
+    equals = equals,
+    merge = merge,
+    tostring = tostring
+}
