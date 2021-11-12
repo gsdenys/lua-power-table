@@ -1,4 +1,5 @@
 local types = require "ptable.utils.types"
+local assertion = require "ptable.assertion"
 
 local format = string.format
 local concat = table.concat
@@ -31,6 +32,10 @@ local function get(tbl, key)
     return value
 end
 
+---equals function that compare the table with another
+---@param tbl any the original table
+---@param compare any the table to be compared
+---@return boolean - true encase of equals, other else false
 local function equals(tbl, compare)
     if size(tbl) ~= size(compare) then return false end
 
@@ -47,15 +52,24 @@ local function equals(tbl, compare)
     return true
 end
 
+---Clone function generates a copy of selected table
+---@param tbl any the table to be clonned
+---@return table - the clonned table
 local function clone(tbl)
-    local copy = require(TABLE_NAME)({})
+    assertion.Table(tbl)
+
+    local copy = require(TABLE_NAME)()
 
     for k, v in pairs(tbl) do
         if type(v) == types.TABLE then v = clone(v) end
 
-        copy:insert(k, v)
+        copy[k] = v
     end
+
+    return copy
 end
+
+
 
 local function merge(t, tbl, overwrite)
     overwrite = overwrite or true

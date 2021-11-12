@@ -34,7 +34,8 @@ describe("[Equals]", function()
 
     describe("String table with pairs", function()
         local table_with_pairs = table({a = "one", b = "two", c = "three"})
-        local other_table_with_pairs = table({a = "one", b = "two", c = "three"})
+        local other_table_with_pairs =
+            table({a = "one", b = "two", c = "three"})
 
         local resp = table_with_pairs:equals(other_table_with_pairs)
         it("should return true", function() assert.True(resp) end)
@@ -44,11 +45,13 @@ describe("[Equals]", function()
         it("should return false", function() assert.False(resp2) end)
     end)
 
-
-
     describe("Table with pairs with tables", function()
         local table_with_pairs = table({a = {a = 1}, b = 2, c = {c = {c = 3}}})
-        local other_table_with_pairs = table({a = {a = 1}, b = 2, c = {c = {c = 3}}})
+        local other_table_with_pairs = table({
+            a = {a = 1},
+            b = 2,
+            c = {c = {c = 3}}
+        })
 
         local resp = table_with_pairs:equals(other_table_with_pairs)
         it("should return true", function() assert.True(resp) end)
