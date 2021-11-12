@@ -12,7 +12,8 @@ local warning = {}
 ---@param fn string the function name
 local function sendWarning(msg, fn)
     local message = messages.MESSAGE_BASE .. msg
-    print(format(message, level.WARN, fn))
+    local formated_message = format(message, level.WARN, fn)
+    print(formated_message)
 end
 
 ---Nil value warning function that use print to comunitate with user

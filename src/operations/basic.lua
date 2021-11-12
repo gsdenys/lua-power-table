@@ -1,20 +1,29 @@
+local types = require "ptable.utils.types"
+
 local format = string.format
 local concat = table.concat
 
 local TABLE_NAME = "ptable"
 
+---Size method to messure the length of table
+---@param t any
+---@return integer
 local function size(t)
     local i = 0
     for k in pairs(t) do i = i + 1 end
     return i
 end
 
+---get function to obtain element from table.
+---@param tbl any
+---@param key any
+---@return any
 local function get(tbl, key)
     local value = tbl[key]
 
     if value == nil then return nil end
 
-    if type(value) == "table" then
+    if type(value) == types.TABLE then
         local t = require(TABLE_NAME)
         return t(value)
     end
@@ -28,7 +37,7 @@ local function equals(tbl, compare)
     for k, v in pairs(tbl) do
         if type(v) ~= type(compare[k]) then return false end
 
-        if type(v) == "table" then
+        if type(v) == types.TABLE then
             if not equals(v, compare[k]) then return false end
         else
             if compare[k] ~= v then return false end
@@ -42,7 +51,7 @@ local function clone(tbl)
     local copy = require(TABLE_NAME)({})
 
     for k, v in pairs(tbl) do
-        if type(v) == "table" then v = clone(v) end
+        if type(v) == types.TABLE then v = clone(v) end
 
         copy:insert(k, v)
     end
@@ -53,7 +62,7 @@ local function merge(t, tbl, overwrite)
 
     for index, value in ipairs(tbl) do
         if t[index] == nil or overwrite then
-            if type(value) == "table" then value = clone(value) end
+            if type(value) == types.TABLE then value = clone(value) end
             t[index] = value
         end
     end
@@ -64,20 +73,23 @@ end
 ---@param tab string the number of tabs (2 spaces each one)
 ---@return string - the table converted to string 
 local function tostring(t, tab)
-    tab = tab or "  "
-    local itemstr = "%skey: %s, value: %s"
+    local NIL_VALUE = ''
+    local TAB_STR = "  "
+    local ITEM_STR = "%skey: %s, value: %s"
+
+    tab = tab or TAB_STR
 
     local b = {"table ["}
     local i = 2
 
     for k, v in pairs(t) do
         if v == nil then
-            v = ''
-        elseif type(v) == "table" then
+            v = NIL_VALUE
+        elseif type(v) == types.TABLE then
             ---@diagnostic disable: undefined-field
-            b[i] = format(itemstr, tab, k, tostring(v, tab .. "  "))
-        elseif type(v) ~= "userdata" then
-            b[i] = format(itemstr, tab, k, v)
+            b[i] = format(ITEM_STR, tab, k, tostring(v, tab .. TAB_STR))
+        elseif type(v) ~= types.USER_DATA then
+            b[i] = format(ITEM_STR, tab, k, v)
         end
 
         i = i + 1
@@ -90,6 +102,7 @@ end
 
 return {
     get = get,
+    size = size,
     clone = clone,
     equals = equals,
     merge = merge,
