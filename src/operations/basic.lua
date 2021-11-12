@@ -3,12 +3,11 @@ local concat = table.concat
 
 local TABLE_NAME = "ptable"
 
-local function size (t)
+local function size(t)
     local i = 0
     for k in pairs(t) do i = i + 1 end
     return i
 end
-
 
 local function get(tbl, key)
     local value = tbl[key]

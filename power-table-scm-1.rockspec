@@ -23,9 +23,17 @@ build = {
     modules = {
         ['ptable'] = "src/table.lua",
 
-		['ptable.helper'] = "src/helper.lua",
+		['ptable.utils.helper'] = "src/utils/helper.lua",
+		['ptable.utils.level'] = "src/utils/level.lua",
+		['ptable.utils.messages'] = "src/utils/messages.lua",
+		['ptable.utils.types'] = "src/utils/types.lua",
+
+		['ptable.assertion'] = "src/assertion.lua",
+		['ptable.warning'] = "src/warning.lua",
+		
 
 		['ptable.operations.basic'] = "src/operations/basic.lua",
 		['ptable.operations.kv'] = "src/operations/key_value.lua",
+		['ptable.operations.iterator'] = "src/operations/iterator.lua",
     },
 }
