@@ -3,12 +3,13 @@ version = "scm-1"
 
 source = {
 	url = "git://github.com/gsdenys/lua-power-table",
+	tag = "scm-1"
 }
 
 description = {
-	summary = "A lua library to iterate over tables",
+	summary = "A lua library to improve table functionality",
 	detailed = [[
-		This library extends the common Lua table by adding iterators function.
+		This library extends the common Lua table by adding usefull function.
 	]],
 	homepage = "https://github.com/gsdenys/lua-power-table",
 	license = "MIT",
