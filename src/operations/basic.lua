@@ -57,8 +57,9 @@ end
 ---@return table - the clonned table
 local function clone(tbl)
     assertion.Table(tbl)
+    local t = require(TABLE_NAME)
 
-    local copy = require(TABLE_NAME)()
+    local copy = t({})
 
     for k, v in pairs(tbl) do
         if type(v) == types.TABLE then v = clone(v) end
@@ -69,12 +70,15 @@ local function clone(tbl)
     return copy
 end
 
-
-
+---merge two tables. if the overwrite flag is true, the first
+---field will be overwrited by the second one
+---@param t any - the first table
+---@param tbl any - the table to be merged
+---@param overwrite boolean - overwrite flag
 local function merge(t, tbl, overwrite)
-    overwrite = overwrite or true
+    overwrite = (overwrite == nil and true) or  overwrite
 
-    for index, value in ipairs(tbl) do
+    for index, value in pairs(tbl) do
         if t[index] == nil or overwrite then
             if type(value) == types.TABLE then value = clone(value) end
             t[index] = value

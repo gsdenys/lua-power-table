@@ -24,9 +24,7 @@ function table:keys() return keyvalue.keys(self) end
 
 function table:values() return keyvalue.values(self) end
 
-function table:iterator(order)
-    return iterator(self)
-end
+function table:iterator(order) return iterator(self) end
 
 return setmetatable(table, {
     __call = function(t, ...) return helper.new_table(mt, ...) end
