@@ -3,10 +3,15 @@ local table = table
 local helper = require "ptable.utils.helper"
 
 local keyvalue = require "ptable.operations.kv"
-local basic = require "ptable.operations.basic"
+local basic    = require "ptable.operations.basic"
 local iterator = require "ptable.operations.iterator"
+local nothing  = require "ptable.operations.nothing"
 
 local mt = {__index = table}
+
+function table:void() return nothing.void() end
+
+function table:info() return nothing.info() end
 
 function table:get(key) return basic.get(self, key) end
 
