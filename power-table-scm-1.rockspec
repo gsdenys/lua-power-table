@@ -35,5 +35,6 @@ build = {
 		['ptable.operations.kv']       = "src/operations/key_value.lua",
 		['ptable.operations.iterator'] = "src/operations/iterator.lua",
 		['ptable.operations.nothing']  = "src/operations/no_actions.lua",
+		['ptable.operations.each']  = "src/operations/each.lua",
     },
 }

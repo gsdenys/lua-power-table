@@ -16,7 +16,7 @@ describe("Assertion", function()
             assert.is_not.Nil(err)
         end)
 
-        it("should not have error", function()
+        it("should not return error", function()
             local function some_test()
                 local assertion = require "ptable.assertion"
 
@@ -24,6 +24,19 @@ describe("Assertion", function()
                 local t = {}
 
                 assertion.Func("some_test", t, f)
+            end
+
+            local _, err = pcall(some_test)
+            assert.Nil(err)
+        end)
+
+        it("should not return error", function()
+            local function some_test()
+                local assertion = require "ptable.assertion"
+
+                local t = {}
+
+                assertion.Func("some_test", t, print)
             end
 
             local _, err = pcall(some_test)

@@ -3,9 +3,10 @@ local table = table
 local helper = require "ptable.utils.helper"
 
 local keyvalue = require "ptable.operations.kv"
-local basic    = require "ptable.operations.basic"
+local basic = require "ptable.operations.basic"
 local iterator = require "ptable.operations.iterator"
-local nothing  = require "ptable.operations.nothing"
+local nothing = require "ptable.operations.nothing"
+local each = require "ptable.operations.each"
 
 local mt = {__index = table}
 
@@ -30,6 +31,12 @@ function table:keys() return keyvalue.keys(self) end
 function table:values() return keyvalue.values(self) end
 
 function table:iterator() return iterator(self) end
+
+function table:each(fn, ...) return each.each(self, fn, ...) end
+
+function table:eachk(fn, ...) return each.eachk(self, fn, ...) end
+
+function table:eachi(fn, ...) return each.eachi(self, fn, ...) end
 
 return setmetatable(table, {
     __call = function(t, ...) return helper.new_table(mt, ...) end
