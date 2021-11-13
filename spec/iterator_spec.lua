@@ -7,25 +7,64 @@ describe("[Iterator]", function()
 
     describe("Empty table", function()
         local empty_table = ptable({})
-        local iter = empty_table:iterator()
+        local i = empty_table:iterator()
 
-        it("should return nil value", function() assert.False(iter:HasNext()) end)
+        it("should not be nil", function() assert.is_not.Nil(i) end)
+        it("should return nil", function() assert.Nil(i:key()) end)
+        it("should return nil", function() assert.Nil(i:value()) end)
+        it("should return false", function() assert.False(i:hasNext()) end)
+
     end)
 
-    describe("Key", function()
-        local kv = ptable({a = 1, b = 2, c = 3})
-        local nm = ptable({1, 2, 3})
+    describe("Numerical table", function()
+        local tbl = ptable({a = 1, b = 2})
+        local i = tbl:iterator()
 
-        it("should have nil value", function()
-            local i = nm:iterator()
+        it("should not be nil", function() assert.is_not.Nil(i) end)
 
-            assert.Nil(i:Key())
-        end)
+        it("should return nil", function() assert.Nil(i:key()) end)
+        it("should return nil", function() assert.Nil(i:value()) end)
+        it("should return true", function() assert.True(i:hasNext()) end)
+    end)
 
-        it("should have nil value", function()
-            local i = kv:iterator(nm)
+    describe("Numerical table", function()
+        local tbl = ptable({a = 1, b = 2})
+        local i = tbl:iterator()
 
-            assert.Nil(i:Key())
-        end)
+        it("should not be nil", function() assert.is_not.Nil(i) end)
+
+        i:next()
+        it("should return 0", function() assert.equal("a", i:key()) end)
+        it("should return nil", function() assert.equal(1, i:value()) end)
+        it("should return true", function() assert.True(i:hasNext()) end)
+    end)
+
+    describe("Numerical table", function()
+        local tbl = ptable({a = 1, b = 2})
+        local i = tbl:iterator()
+
+        it("should not be nil", function() assert.is_not.Nil(i) end)
+
+        i:next()
+        i:next()
+        it("should return 0", function() assert.equal("b", i:key()) end)
+        it("should return nil", function() assert.equal(2, i:value()) end)
+        it("should return true", function() assert.False(i:hasNext()) end)
+    end)
+
+    describe("Numerical table", function()
+        local tbl = ptable({a = 1, b = 2})
+        local i = tbl:iterator()
+
+        it("should not be nil", function() assert.is_not.Nil(i) end)
+
+        local function some_test()
+            i:next()
+            i:next()
+            i:next()
+        end
+
+        local _, err = pcall(some_test)
+        assert.is_not.Nil(err)
     end)
 end)

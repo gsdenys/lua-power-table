@@ -1,37 +1,62 @@
 local assertion = require "ptable.assertion"
+local messages = require "ptable.utils.messages"
 
 local FUNCTION_NAME = "iterator"
 
 local iterator = {}
 
-function iterator:Key()
+---Return the actual key. Before first  and after the last iteration
+---the result of this method will be nil
+---@return any - the actual key
+function iterator:key()
+    if self.it == 0 then return nil end
+
+    if self.it > #self.keys then return nil end
+
     if #self.keys > 0 then return self.keys[self.it] end
 
     return self.it
 end
 
-function iterator:value() return self.t[self:Key()] end
+---Return the actual value. Before first  and after the last iteration
+---the result of this method will be nil.
+---@return any - the actual key
+function iterator:value()
+    local key = self:key()
 
-function iterator:HasNext()
+    if key == nil then return nil end
+
+    return self.t[self:key()]
+end
+
+--- verify if the iterator has next element
+---@return boolean - true if has next, other else false
+function iterator:hasNext()
     if #self.keys > 0 then return self.it < #self.keys end
-    return self.it < #self.t
+    return false
 end
 
-function iterator:Next()
+---iterate to the next element. in case of iterate more then the numbers
+---of elements you'll receive an array index out of bound exception
+function iterator:next()
+    assertion.True("iterator.next", messages.ARRAY_INDEX_OUT_OF_BOUND,
+                   #self.keys > self.it)
+
     self.it = self.it + 1
-    return self.t[self:Key()]
 end
 
+---Factory to create the iterator
+---@param t any theorder table
+---@return table - the iterator
 return function(t)
     assertion.Table(t, FUNCTION_NAME)
 
-    local it = iterator
+    local iter = iterator
 
-    it.t = t
-    it.keys = t:keys()
-    it.it = 0
+    iter.t = t
+    iter.keys = t:keys()
+    iter.it = 0
 
-    return it
+    return iter
 end
-
 

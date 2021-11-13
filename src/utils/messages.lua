@@ -6,5 +6,6 @@ messages.REQUIRE_NOT_NIL_FUNCTION = "require a not-nil function!"
 messages.REQUIRE_NUMBER = "require a number"
 messages.NIL_VALUE = "nil value"
 messages.EMPTY_TABLE = "empty table"
+messages.ARRAY_INDEX_OUT_OF_BOUND = "Array index out of bound exception"
 
 return messages

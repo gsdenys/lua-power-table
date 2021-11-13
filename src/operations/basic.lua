@@ -70,8 +70,8 @@ local function clone(tbl)
     return copy
 end
 
----merge two tables. if the overwrite flag is true, the first
----field will be overwrited by the second one
+---merge two tables in the first one. if the overwrite flag is true, the first
+---table value will be overwrited by the second one
 ---@param t any - the first table
 ---@param tbl any - the table to be merged
 ---@param overwrite boolean - overwrite flag
@@ -118,6 +118,7 @@ local function tostring(t, tab)
     return concat(b, "\n")
 end
 
+-- returns the methods
 return {
     get = get,
     size = size,
