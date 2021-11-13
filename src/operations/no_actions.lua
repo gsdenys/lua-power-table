@@ -11,3 +11,5 @@ end
 
 ---do nothing
 local function void() end
+
+return {info = info, void = void}
