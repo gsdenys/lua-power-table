@@ -4,12 +4,13 @@ local assertion = require "ptable.assertion"
 local format = string.format
 local concat = table.concat
 
-local TABLE_NAME = "ptable"
-
 ---Size method to messure the length of table
 ---@param t any
 ---@return integer
 local function size(t)
+    local FUNCTION_NAME = debug.getinfo(1, "n").name
+    assertion.Table(t, FUNCTION_NAME)
+
     local i = 0
     for k in pairs(t) do i = i + 1 end
     return i
@@ -20,12 +21,15 @@ end
 ---@param key any
 ---@return any
 local function get(tbl, key)
+    local FUNCTION_NAME = debug.getinfo(1, "n").name
+    assertion.Table(tbl, FUNCTION_NAME)
+
     local value = tbl[key]
 
     if value == nil then return nil end
 
     if type(value) == types.TABLE then
-        local t = require(TABLE_NAME)
+        local t = require(types.POWER_TABLE)
         return t(value)
     end
 
@@ -37,6 +41,10 @@ end
 ---@param compare any the table to be compared
 ---@return boolean - true encase of equals, other else false
 local function equals(tbl, compare)
+    local FUNCTION_NAME = debug.getinfo(1, "n").name
+    assertion.Table(tbl, FUNCTION_NAME)
+    assertion.Table(compare, FUNCTION_NAME)
+
     if size(tbl) ~= size(compare) then return false end
 
     for k, v in pairs(tbl) do
@@ -56,8 +64,10 @@ end
 ---@param tbl any the table to be clonned
 ---@return table - the clonned table
 local function clone(tbl)
-    assertion.Table(tbl)
-    local t = require(TABLE_NAME)
+    local FUNCTION_NAME = debug.getinfo(1, "n").name
+    assertion.Table(tbl, FUNCTION_NAME)
+
+    local t = require(types.POWER_TABLE)
 
     local copy = t({})
 
@@ -76,7 +86,12 @@ end
 ---@param tbl any - the table to be merged
 ---@param overwrite boolean - overwrite flag
 local function merge(t, tbl, overwrite)
-    overwrite = (overwrite == nil and true) or  overwrite
+    local FUNCTION_NAME = debug.getinfo(1, "n").name
+
+    assertion.Table(t, FUNCTION_NAME)
+    assertion.Table(tbl, FUNCTION_NAME)
+
+    overwrite = (overwrite == nil and true) or overwrite
 
     for index, value in pairs(tbl) do
         if t[index] == nil or overwrite then
@@ -91,6 +106,10 @@ end
 ---@param tab string the number of tabs (2 spaces each one)
 ---@return string - the table converted to string 
 local function tostring(t, tab)
+    local FUNCTION_NAME = debug.getinfo(1, "n").name
+
+    assertion.Table(t, FUNCTION_NAME)
+
     local NIL_VALUE = ''
     local TAB_STR = "  "
     local ITEM_STR = "%skey: %s, value: %s"

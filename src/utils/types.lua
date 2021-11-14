@@ -1,5 +1,7 @@
 local types = {}
 
+types.POWER_TABLE = "ptable"
+
 types.TABLE = "table"
 types.FUNCTION = "function"
 types.NUMBER = "number"

@@ -1,8 +1,6 @@
 local assertion = require "ptable.assertion"
 local messages = require "ptable.utils.messages"
 
-local FUNCTION_NAME = "iterator"
-
 local iterator = {}
 
 ---Return the actual key. Before first  and after the last iteration
@@ -49,6 +47,8 @@ end
 ---@param t any theorder table
 ---@return table - the iterator
 return function(t)
+    local FUNCTION_NAME = debug.getinfo(1, "n").name
+
     assertion.Table(t, FUNCTION_NAME)
 
     local iter = iterator
