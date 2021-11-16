@@ -12,7 +12,6 @@
 --- @author Denys G. Santos <gsdenys@gmail.com>
 --- @license MIT
 --- @release 1.0.0
-
 local table = table
 
 local helper = require "ptable.utils.helper"
@@ -25,15 +24,22 @@ local each = require "ptable.operations.each"
 
 local mt = {__index = table}
 
----A void method that you can use to check it your table has this extention
----@usage
+--- A void method that you can use to check it your table has this extention.
+---
+--- @usage
 ---   local table = require "ptable"
 ---   local tbl = table({})
 ---   tbl.void() --it'll do nothing
 function table:void() nothing.void() end
 
----Somme informations about this library
----@return string this lib informations
+--- Provides some informations about this library.
+---
+--- @usage
+---   local table = require "ptable"
+---   local tbl = table({})
+---   tbl.info() --it'll return the information in string format
+---
+---@return string - the library informations
 function table:info() return nothing.info() end
 
 function table:get(key) return basic.get(self, key) end
