@@ -1,5 +1,5 @@
 package = "power-table"
-version = "scm-1"
+version = "scm-2"
 
 source = {
 	url = "git://github.com/gsdenys/lua-power-table",

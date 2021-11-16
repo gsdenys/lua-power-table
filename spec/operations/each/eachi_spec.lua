@@ -26,6 +26,17 @@ describe("[Eachi]", function()
         end)
     end)
 
+    describe("key value table", function()
+        spy.on(_G, "print")
+
+        local tbl = table({4, 5, 6})  --{a = 1, b = 2, c = 3})
+        tbl:eachi(some_test)
+
+        it("should be called", function()
+            assert.spy(_G.print).was.called(3)
+        end)
+    end)
+
     describe("Numerical table with one item", function()
         spy.on(_G, "print")
 
@@ -36,9 +47,8 @@ describe("[Eachi]", function()
             assert.spy(_G.print).was.called(1)
         end)
 
-        it("should be called with 3", function()
-            assert.spy(_G.print).was.called_with(3)
-        end)
+        it("should be called with 3",
+           function() assert.spy(_G.print).was.called_with(3) end)
     end)
 
 end)

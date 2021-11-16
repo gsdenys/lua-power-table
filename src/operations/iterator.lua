@@ -48,7 +48,6 @@ end
 ---@return table - the iterator
 return function(t)
     local FUNCTION_NAME = debug.getinfo(1, "n").name
-
     assertion.Table(t, FUNCTION_NAME)
 
     local iter = iterator
