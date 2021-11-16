@@ -41,7 +41,7 @@ end
 ---@param compare any the table to be compared
 ---@return boolean - true encase of equals, other else false
 local function equals(tbl, compare)
-    local FUNCTION_NAME = debug.getinfo(1, "n").namex
+    local FUNCTION_NAME = debug.getinfo(1, "n").name
     assertion.Table(tbl, FUNCTION_NAME)
     assertion.Table(compare, FUNCTION_NAME)
 
