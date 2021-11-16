@@ -1,3 +1,18 @@
+--- This module provides powerfull methods to lua table injecting it inside that table, it's objective is
+--- to make easier to do basics operation over table instantied object.
+---
+--- The development of this module comes for the purpose of facilitate the programmer life giving then a
+--- way to write a code not replicating the same functions for every project that they do.
+---
+--- With this module programmer can have their code prettier and focused in whats really metters, that is
+--- the creative actions, and not thinking about the basics actions like get the tables size or merge 2
+--- others.
+---
+--- @module Power-Table
+--- @author Denys G. Santos <gsdenys@gmail.com>
+--- @license MIT
+--- @release 1.0.0
+
 local table = table
 
 local helper = require "ptable.utils.helper"
@@ -10,8 +25,15 @@ local each = require "ptable.operations.each"
 
 local mt = {__index = table}
 
-function table:void() return nothing.void() end
+---A void method that you can use to check it your table has this extention
+---@usage
+---   local table = require "ptable"
+---   local tbl = table({})
+---   tbl.void() --it'll do nothing
+function table:void() nothing.void() end
 
+---Somme informations about this library
+---@return string this lib informations
 function table:info() return nothing.info() end
 
 function table:get(key) return basic.get(self, key) end
