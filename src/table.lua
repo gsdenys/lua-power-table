@@ -67,7 +67,7 @@ function table:info() return nothing.info() end
 ---   local tbl = table({a = 1, b = 2, c = 3})
 ---   local value = tbl:get(a) -- it should return 1
 ---
---- @param key any some key
+--- @param key any - some key
 --- @return any - the value stored or nil
 function table:get(key) return basic.get(self, key) end
 
@@ -81,11 +81,28 @@ function table:get(key) return basic.get(self, key) end
 ---@return table - the new created table 
 function table:clone() return basic.clone(self) end
 
----Merge this table with another 
----@param t any
----@param overwrite any
----@return any
-function table:merge(t, overwrite) return basic.merge(self, t, overwrite) end
+--- Merge this table with another one. There are two types of merging, the first one,
+--- that is the default option, overwrite the intersecting elements (replace the
+--- first one by the second), and the second their maintains (ignores the second's
+--- intersection values).
+---
+--- It's important to know that this method doesn't return another table. Different of
+--- clone method, this one just actualize this active instance.
+---
+--- @usage
+---   local table = require "ptable"
+---
+---   local first_table  = table({a = 1, b = 2, c = 3})
+--    local cloned_table = first_table:clone()
+---
+---   local other_table = table({b = 4, c = 5, d = 6})
+---
+---   first_table:merge(oth) -- 'first_table' == {a = 1, b = 4, c = 5, d = 6}
+---   cloned_table:merge(oth, false) -- 'cloned_table' == {a = 1, b = 2, c = 3, d = 6}
+---
+--- @param t table - the table to be merged with this one
+--- @param overwrite boolean - inform if the data must be overwritten (option - default true)
+function table:merge(t, overwrite) basic.merge(self, t, overwrite) end
 
 --- Compare this table with another and return true in case of both are equals,
 --- other else return false.
@@ -99,8 +116,8 @@ function table:merge(t, overwrite) return basic.merge(self, t, overwrite) end
 ---   local oth = table({a = 1, b = 2, c = 3})
 ---   local equals = tbl:equals(oth) -- it should return true
 ---
---- @param t any
---- @return any
+--- @param t table - the table to be compared
+--- @return boolean - true if both are equals, other else false
 function table:equals(t) return basic.equals(self, t) end
 
 function table:size() return basic.size(self) end
@@ -111,13 +128,13 @@ function table:keys() return keyvalue.keys(self) end
 
 function table:values() return keyvalue.values(self) end
 
-function table:iterator() return iterator(self) end
-
 function table:each(fn, ...) return each.each(self, fn, ...) end
 
 function table:eachk(fn, ...) return each.eachk(self, fn, ...) end
 
 function table:eachi(fn, ...) return each.eachi(self, fn, ...) end
+
+function table:iterator() return iterator(self) end
 
 return setmetatable(table, {
     __call = function(t, ...) return helper.new_table(mt, ...) end
