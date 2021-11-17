@@ -43,14 +43,15 @@
 <div id="content">
 
 <h1>Module <code>Power-Table</code></h1>
-<p>This module provides powerfull methods to lua table injecting it inside that table, it's objective is
- to make easier to do basics operation over table instantied object.</p>
+<p>This module provides powerfull methods to lua table injecting it inside that table,
+ it's objective is to make easier to do basics operation over table instantied object.</p>
 <p>
-<p> The development of this module comes for the purpose of facilitate the programmer life giving then a
- way to write a code not replicating the same functions for every project that they do.
-<p> With this module programmer can have their code prettier and focused in whats really metters, that is
- the creative actions, and not thinking about the basics actions like get the tables size or merge 2
- others.
+<p> The development of this module comes for the purpose of facilitate the programmer life
+ giving then a way to write a code not replicating the same functions for every project
+ that they do.
+<p> With this module programmer can have their code prettier and focused in whats really
+ metters, that is the creative actions, and not thinking about the basics actions like
+ get the tables size or merge 2 others.
 </p>
     <h3>Info:</h3>
     <ul>
@@ -69,6 +70,23 @@
 	<tr>
 	<td class="name" nowrap><a href="#table:info">table:info ()</a></td>
 	<td class="summary">Provides some informations about this library.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#table:get">table:get (key)</a></td>
+	<td class="summary">Get element based on a given key.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#table:clone">table:clone ()</a></td>
+	<td class="summary">Create a deep copy of this table.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#table:merge">table:merge (t, overwrite)</a></td>
+	<td class="summary">Merge this table with another</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#table:equals">table:equals (t)</a></td>
+	<td class="summary">Compare this table with another and return true in case of both are equals,
+ other else return false.</td>
 	</tr>
 </table>
 
@@ -124,6 +142,128 @@ tbl.info() <span class="comment">--it'll return the information in string format
     </ul>
 
 </dd>
+    <dt>
+    <a name = "table:get"></a>
+    <strong>table:get (key)</strong>
+    </dt>
+    <dd>
+    Get element based on a given key.  The value returne always is a
+ table element or nil (in case of key is not present in the table).
+
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">key</span>
+         any some key
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+        any - the value stored or nil
+    </ol>
+
+
+
+    <h3>Usage:</h3>
+    <ul>
+        <pre class="example"><span class="keyword">local</span> <span class="global">table</span> = <span class="global">require</span> <span class="string">"ptable"</span>
+<span class="keyword">local</span> tbl = <span class="global">table</span>({a = <span class="number">1</span>, b = <span class="number">2</span>, c = <span class="number">3</span>})
+<span class="keyword">local</span> value = tbl:get(a) <span class="comment">-- it should return 1</span></pre>
+    </ul>
+
+</dd>
+    <dt>
+    <a name = "table:clone"></a>
+    <strong>table:clone ()</strong>
+    </dt>
+    <dd>
+    Create a deep copy of this table.
+
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+        table - the new created table
+    </ol>
+
+
+
+    <h3>Usage:</h3>
+    <ul>
+        <pre class="example"><span class="keyword">local</span> <span class="global">table</span> = <span class="global">require</span> <span class="string">"ptable"</span>
+<span class="keyword">local</span> tbl = <span class="global">table</span>({a = <span class="number">1</span>, b = <span class="number">2</span>, c = <span class="number">3</span>})
+<span class="keyword">local</span> clone = tbl:clone() <span class="comment">-- it should return a new table equals the tbl</span></pre>
+    </ul>
+
+</dd>
+    <dt>
+    <a name = "table:merge"></a>
+    <strong>table:merge (t, overwrite)</strong>
+    </dt>
+    <dd>
+    Merge this table with another
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">t</span>
+         any
+        </li>
+        <li><span class="parameter">overwrite</span>
+         any
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+        any
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "table:equals"></a>
+    <strong>table:equals (t)</strong>
+    </dt>
+    <dd>
+    Compare this table with another and return true in case of both are equals,
+ other else return false.
+<p> This function compare unically the key an value of the tables, ignoring
+ completally the overload that both could had received.
+
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">t</span>
+         any
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+        any
+    </ol>
+
+
+
+    <h3>Usage:</h3>
+    <ul>
+        <pre class="example"><span class="keyword">local</span> <span class="global">table</span> = <span class="global">require</span> <span class="string">"ptable"</span>
+<span class="keyword">local</span> tbl = <span class="global">table</span>({a = <span class="number">1</span>, b = <span class="number">2</span>, c = <span class="number">3</span>})
+<span class="keyword">local</span> oth = <span class="global">table</span>({a = <span class="number">1</span>, b = <span class="number">2</span>, c = <span class="number">3</span>})
+<span class="keyword">local</span> equals = tbl:equals(oth) <span class="comment">-- it should return true</span></pre>
+    </ul>
+
+</dd>
 </dl>
 
 
@@ -131,7 +271,7 @@ tbl.info() <span class="comment">--it'll return the information in string format
 </div> <!-- id="main" -->
 <div id="about">
 <i>generated by <a href="http://github.com/stevedonovan/LDoc">LDoc 1.4.6</a></i>
-<i style="float:right;">Last updated 2021-11-16 10:25:45 </i>
+<i style="float:right;">Last updated 2021-11-17 00:55:56 </i>
 </div> <!-- id="about" -->
 </div> <!-- id="container" -->
 </body>

@@ -3,7 +3,7 @@ version = "scm-2"
 
 source = {
 	url = "git://github.com/gsdenys/lua-power-table",
-	tag = "scm-1"
+	tag = "scm-2"
 }
 
 description = {
@@ -11,7 +11,7 @@ description = {
 	detailed = [[
 		This library extends the common Lua table by adding usefull function.
 	]],
-	homepage = "https://github.com/gsdenys/lua-power-table",
+	homepage = "https://gsdenys.github.io/lua-power-table",
 	license = "MIT",
 }
 
