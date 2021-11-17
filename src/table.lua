@@ -9,11 +9,12 @@
 --- metters, that is the creative actions, and not thinking about the basics actions like
 --- get the tables size or merge 2 others.
 ---
---- @module power-table
+--- @module table
 --- @author Denys G. Santos
 --- @copyright 2021-2022
 --- @license MIT
 --- @release 1.0.0
+
 local table = table
 
 -- Add the module that provides methos to add the table inprovements through
@@ -32,10 +33,10 @@ local basic = require "ptable.operations.basic"
 -- or theirs key or values.
 local iterator = require "ptable.operations.iterator"
 
--- Add the module to enable the void and info methods.
+-- Add the module to enable access to the void and info methods.
 local nothing = require "ptable.operations.nothing"
 
--- Add the each modulo that contains all methods to perform a given function over
+-- Add the each module that contains all methods to perform a given function over
 -- all table pairs, keys or values.
 local each = require "ptable.operations.each"
 
@@ -158,7 +159,7 @@ function table:tostring() return basic.tostring(self) end
 ---@return table - A table with the keyset
 function table:keys() return keyvalue.keys(self) end
 
----Obtains the table values list.
+--- Obtains the table values list.
 ---
 --- This function compare unically the data mapped in pairs inside the tables, ignoring
 --- completally the overload that it should have received.
@@ -171,14 +172,59 @@ function table:keys() return keyvalue.keys(self) end
 ---@return table - A table with the values list
 function table:values() return keyvalue.values(self) end
 
-function table:each(fn, ...) return each.each(self, fn, ...) end
+--- Execute a given function with the parameter 'key' and 'value' followed by any others your choose.
+---
+--- @usage
+---   local table = require "ptable"
+---   local tbl   = table({a = 1, b = 2, c = 3})
+---   local keys  = tbl:each(print, "hello")
+---   -- it must print:
+---   -- a 1 hello
+---   -- b 2 hello
+---   -- c 3 hello
+---
+--- @param fn function - the function to be executed over each pears
+function table:each(fn, ...) each.each(self, fn, ...) end
 
-function table:eachk(fn, ...) return each.eachk(self, fn, ...) end
+--- Execute a given function with the parameter 'key' followed by any others your choose.
+---
+--- @usage
+---   local table = require "ptable"
+---   local tbl   = table({a = 1, b = 2, c = 3})
+---   local keys  = tbl:eachk(print, "hello")
+---   -- it must print:
+---   -- a hello
+---   -- b hello
+---   -- c hello
+---
+--- @param fn function - the function to be executed over each key
+function table:eachk(fn, ...) each.eachk(self, fn, ...) end
 
-function table:eachi(fn, ...) return each.eachi(self, fn, ...) end
+--- Execute a given function with the parameter 'value' followed by any others your choose.
+---
+--- @usage
+---   local table = require "ptable"
+---   local tbl   = table({a = 1, b = 2, c = 3})
+---   local keys  = tbl:eachi(print, "hello")
+---   -- it must print:
+---   -- 1 hello
+---   -- 2 hello
+---   -- 3 hello
+---
+--- @param fn function - the function to be executed over each value
+function table:eachi(fn, ...) each.eachi(self, fn, ...) end
 
+--- Get the iterator object from this table
+---
+--- @usage
+---   local table = require "ptable"
+---   local tbl   = table({a = 1, b = 2, c = 3})
+---   local it    = tbl:iterator()
+---
+--- @return any - the iterator object
 function table:iterator() return iterator(self) end
 
+-- use setmetatable function to overload methods to this table
 return setmetatable(table, {
     __call = function(t, ...) return helper.new_table(mt, ...) end
 })
