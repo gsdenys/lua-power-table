@@ -1,0 +1,423 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+<head>
+    <title>Lua Power Table</title>
+    <link rel="stylesheet" href="../ldoc.css" type="text/css" />
+</head>
+<body>
+
+<div id="container">
+
+<div id="product">
+	<div id="product_logo"></div>
+	<div id="product_name"><big><b></b></big></div>
+	<div id="product_description"></div>
+</div> <!-- id="product" -->
+
+
+<div id="main">
+
+
+<!-- Menu -->
+
+<div id="navigation">
+<br/>
+<h1>Lua Power Table</h1>
+
+<ul>
+  <li><a href="../index.html">Index</a></li>
+</ul>
+
+<h2>Contents</h2>
+<ul>
+<li><a href="#Functions">Functions</a></li>
+</ul>
+
+
+<h2>Modules</h2>
+<ul class="nowrap">
+  <li><a href="../modules/iterator.html">iterator</a></li>
+  <li><a href="../modules/operations.no_actions.html">operations.no_actions</a></li>
+  <li><strong>power-table</strong></li>
+</ul>
+
+</div>
+
+<div id="content">
+
+<h1>Module <code>power-table</code></h1>
+<p>This module provides powerfull methods to lua table injecting it inside that table,
+ it's objective is to make easier to do basics operation over table instantied object.</p>
+<p>
+<p> The development of this module comes for the purpose of facilitate the programmer life
+ giving then a way to write a code not replicating the same functions for every project
+ that they do.
+<p> With this module programmer can have their code prettier and focused in whats really
+ metters, that is the creative actions, and not thinking about the basics actions like
+ get the tables size or merge 2 others.
+</p>
+    <h3>Info:</h3>
+    <ul>
+        <li><strong>Copyright</strong>: 2021-2022</li>
+        <li><strong>Release</strong>: 1.0.0</li>
+        <li><strong>License</strong>: MIT</li>
+        <li><strong>Author</strong>: Denys G. Santos</li>
+    </ul>
+
+
+<h2><a href="#Functions">Functions</a></h2>
+<table class="function_list">
+	<tr>
+	<td class="name" nowrap><a href="#table:void">table:void ()</a></td>
+	<td class="summary">A void method that you can use to check it your table has this extention.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#table:info">table:info ()</a></td>
+	<td class="summary">Provides some informations about this library.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#table:get">table:get (key)</a></td>
+	<td class="summary">Get element based on a given key.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#table:clone">table:clone ()</a></td>
+	<td class="summary">Create a deep copy of this table.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#table:merge">table:merge (t, overwrite)</a></td>
+	<td class="summary">Merge this table with another one.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#table:equals">table:equals (t)</a></td>
+	<td class="summary">Compare this table with another and return true in case of both are equals,
+ other else return false.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#table:size">table:size ()</a></td>
+	<td class="summary">Obtain the size of the table.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#table:tostring">table:tostring ()</a></td>
+	<td class="summary">Returns a printable multiline string that map all pairs stored inse this table</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#table:keys">table:keys ()</a></td>
+	<td class="summary">Obtains the table keyset.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#table:values">table:values ()</a></td>
+	<td class="summary">Obtains the table values list.</td>
+	</tr>
+</table>
+
+<br/>
+<br/>
+
+
+    <h2 class="section-header "><a name="Functions"></a>Functions</h2>
+
+    <dl class="function">
+    <dt>
+    <a name = "table:void"></a>
+    <strong>table:void ()</strong>
+    </dt>
+    <dd>
+    A void method that you can use to check it your table has this extention.
+
+
+
+
+
+
+    <h3>Usage:</h3>
+    <ul>
+        <pre class="example"><span class="keyword">local</span> <span class="global">table</span> = <span class="global">require</span> <span class="string">"ptable"</span>
+<span class="keyword">local</span> tbl = <span class="global">table</span>({})
+tbl.void() <span class="comment">--it'll do nothing</span></pre>
+    </ul>
+
+</dd>
+    <dt>
+    <a name = "table:info"></a>
+    <strong>table:info ()</strong>
+    </dt>
+    <dd>
+    Provides some informations about this library.
+
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+        string - the library informations
+    </ol>
+
+
+
+    <h3>Usage:</h3>
+    <ul>
+        <pre class="example"><span class="keyword">local</span> <span class="global">table</span> = <span class="global">require</span> <span class="string">"ptable"</span>
+<span class="keyword">local</span> tbl = <span class="global">table</span>({})
+tbl.info() <span class="comment">--it'll return the information in string format</span></pre>
+    </ul>
+
+</dd>
+    <dt>
+    <a name = "table:get"></a>
+    <strong>table:get (key)</strong>
+    </dt>
+    <dd>
+    Get element based on a given key.  The value returne always is a
+ table element or nil (in case of key is not present in the table).
+
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">key</span>
+         any - some key
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+        any - the value stored or nil
+    </ol>
+
+
+
+    <h3>Usage:</h3>
+    <ul>
+        <pre class="example"><span class="keyword">local</span> <span class="global">table</span> = <span class="global">require</span> <span class="string">"ptable"</span>
+<span class="keyword">local</span> tbl = <span class="global">table</span>({a = <span class="number">1</span>, b = <span class="number">2</span>, c = <span class="number">3</span>})
+<span class="keyword">local</span> value = tbl:get(a) <span class="comment">-- it should return 1</span></pre>
+    </ul>
+
+</dd>
+    <dt>
+    <a name = "table:clone"></a>
+    <strong>table:clone ()</strong>
+    </dt>
+    <dd>
+    Create a deep copy of this table.
+
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+        table - the new created table
+    </ol>
+
+
+
+    <h3>Usage:</h3>
+    <ul>
+        <pre class="example"><span class="keyword">local</span> <span class="global">table</span> = <span class="global">require</span> <span class="string">"ptable"</span>
+<span class="keyword">local</span> tbl = <span class="global">table</span>({a = <span class="number">1</span>, b = <span class="number">2</span>, c = <span class="number">3</span>})
+<span class="keyword">local</span> clone = tbl:clone() <span class="comment">-- it should return a new table equals the tbl</span></pre>
+    </ul>
+
+</dd>
+    <dt>
+    <a name = "table:merge"></a>
+    <strong>table:merge (t, overwrite)</strong>
+    </dt>
+    <dd>
+    Merge this table with another one.  There are two types of merging, the first one,
+ that is the default option, overwrite the intersecting elements (replace the
+ first one by the second), and the second their maintains (ignores the second's
+ intersection values).
+<p> It's important to know that this method doesn't return another table. Different of
+ clone method, this one just actualize this active instance.
+
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">t</span>
+         table - the table to be merged with this one
+        </li>
+        <li><span class="parameter">overwrite</span>
+         boolean - inform if the data must be overwritten (option - default true)
+        </li>
+    </ul>
+
+
+
+
+    <h3>Usage:</h3>
+    <ul>
+        <pre class="example"><span class="keyword">local</span> <span class="global">table</span> = <span class="global">require</span> <span class="string">"ptable"</span>
+
+<span class="keyword">local</span> first_table  = <span class="global">table</span>({a = <span class="number">1</span>, b = <span class="number">2</span>, c = <span class="number">3</span>})
+<span class="keyword">local</span> cloned_table = first_table:clone()
+
+<span class="keyword">local</span> other_table = <span class="global">table</span>({b = <span class="number">4</span>, c = <span class="number">5</span>, d = <span class="number">6</span>})
+
+first_table:merge(oth) <span class="comment">-- 'first_table' == {a = 1, b = 4, c = 5, d = 6}
+</span>cloned_table:merge(oth, <span class="keyword">false</span>) <span class="comment">-- 'cloned_table' == {a = 1, b = 2, c = 3, d = 6}</span></pre>
+    </ul>
+
+</dd>
+    <dt>
+    <a name = "table:equals"></a>
+    <strong>table:equals (t)</strong>
+    </dt>
+    <dd>
+    Compare this table with another and return true in case of both are equals,
+ other else return false.
+<p> This function compare unically the key an value of the tables, ignoring
+ completally the overload that both could had received.
+
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">t</span>
+         table - the table to be compared
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+        boolean - true if both are equals, other else false
+    </ol>
+
+
+
+    <h3>Usage:</h3>
+    <ul>
+        <pre class="example"><span class="keyword">local</span> <span class="global">table</span> = <span class="global">require</span> <span class="string">"ptable"</span>
+<span class="keyword">local</span> tbl = <span class="global">table</span>({a = <span class="number">1</span>, b = <span class="number">2</span>, c = <span class="number">3</span>})
+<span class="keyword">local</span> oth = <span class="global">table</span>({a = <span class="number">1</span>, b = <span class="number">2</span>, c = <span class="number">3</span>})
+<span class="keyword">local</span> equals = tbl:equals(oth) <span class="comment">-- it should return true</span></pre>
+    </ul>
+
+</dd>
+    <dt>
+    <a name = "table:size"></a>
+    <strong>table:size ()</strong>
+    </dt>
+    <dd>
+    Obtain the size of the table.  As the lua has no simple way to get the lengh of, this
+ implementation use the count of all pairs inside that.
+<p> This function compare unically the number of pairs inside the tables, ignoring
+ completally the overload that it should have received.
+
+
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+        integer - the size of the table
+    </ol>
+
+
+
+    <h3>Usage:</h3>
+    <ul>
+        <pre class="example"><span class="keyword">local</span> <span class="global">table</span> = <span class="global">require</span> <span class="string">"ptable"</span>
+<span class="keyword">local</span> tbl = <span class="global">table</span>({a = <span class="number">1</span>, b = <span class="number">2</span>, c = <span class="number">3</span>})
+<span class="keyword">local</span> size = tbl:size() <span class="comment">-- it must return 3</span></pre>
+    </ul>
+
+</dd>
+    <dt>
+    <a name = "table:tostring"></a>
+    <strong>table:tostring ()</strong>
+    </dt>
+    <dd>
+    Returns a printable multiline string that map all pairs stored inse this table
+
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+        string - the printable multiline string
+    </ol>
+
+
+
+    <h3>Usage:</h3>
+    <ul>
+        <pre class="example"><span class="keyword">local</span> <span class="global">table</span> = <span class="global">require</span> <span class="string">"ptable"</span>
+<span class="keyword">local</span> tbl = <span class="global">table</span>({a = <span class="number">1</span>, b = <span class="number">2</span>, c = <span class="number">3</span>})
+<span class="keyword">local</span> str = tbl:<span class="global">tostring</span>() <span class="comment">-- it must return the printable string</span></pre>
+    </ul>
+
+</dd>
+    <dt>
+    <a name = "table:keys"></a>
+    <strong>table:keys ()</strong>
+    </dt>
+    <dd>
+    Obtains the table keyset.
+<p> This function compare unically the data mapped in pairs inside the tables, ignoring
+ completally the overload that it should have received.
+
+
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+        table - A table with the keyset
+    </ol>
+
+
+
+    <h3>Usage:</h3>
+    <ul>
+        <pre class="example"><span class="keyword">local</span> <span class="global">table</span> = <span class="global">require</span> <span class="string">"ptable"</span>
+<span class="keyword">local</span> tbl   = <span class="global">table</span>({a = <span class="number">1</span>, b = <span class="number">2</span>, c = <span class="number">3</span>})
+<span class="keyword">local</span> keys  = tbl:keys() <span class="comment">-- it must return {a, b, c}</span></pre>
+    </ul>
+
+</dd>
+    <dt>
+    <a name = "table:values"></a>
+    <strong>table:values ()</strong>
+    </dt>
+    <dd>
+    Obtains the table values list.
+<p> This function compare unically the data mapped in pairs inside the tables, ignoring
+ completally the overload that it should have received.
+
+
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+        table - A table with the values list
+    </ol>
+
+
+
+    <h3>Usage:</h3>
+    <ul>
+        <pre class="example"><span class="keyword">local</span> <span class="global">table</span> = <span class="global">require</span> <span class="string">"ptable"</span>
+<span class="keyword">local</span> tbl   = <span class="global">table</span>({a = <span class="number">1</span>, b = <span class="number">2</span>, c = <span class="number">3</span>})
+<span class="keyword">local</span> keys  = tbl:values() <span class="comment">-- it must return {1, 2, 3}</span></pre>
+    </ul>
+
+</dd>
+</dl>
+
+
+</div> <!-- id="content" -->
+</div> <!-- id="main" -->
+<div id="about">
+<i>generated by <a href="http://github.com/stevedonovan/LDoc">LDoc 1.4.6</a></i>
+<i style="float:right;">Last updated 2021-11-17 14:10:12 </i>
+</div> <!-- id="about" -->
+</div> <!-- id="container" -->
+</body>
+</html>

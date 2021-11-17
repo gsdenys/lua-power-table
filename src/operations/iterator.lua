@@ -1,3 +1,11 @@
+---
+--- @module iterator
+--- @author Denys G. Santos
+--- @copyright 2021-2022
+--- @license MIT
+--- @release 1.0.0
+---
+
 local assertion = require "ptable.assertion"
 local messages = require "ptable.utils.messages"
 

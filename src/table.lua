@@ -9,8 +9,9 @@
 --- metters, that is the creative actions, and not thinking about the basics actions like
 --- get the tables size or merge 2 others.
 ---
---- @module Power-Table
---- @author Denys G. Santos <gsdenys@gmail.com>
+--- @module power-table
+--- @author Denys G. Santos
+--- @copyright 2021-2022
 --- @license MIT
 --- @release 1.0.0
 local table = table
@@ -93,7 +94,7 @@ function table:clone() return basic.clone(self) end
 ---   local table = require "ptable"
 ---
 ---   local first_table  = table({a = 1, b = 2, c = 3})
---    local cloned_table = first_table:clone()
+---   local cloned_table = first_table:clone()
 ---
 ---   local other_table = table({b = 4, c = 5, d = 6})
 ---
@@ -120,12 +121,54 @@ function table:merge(t, overwrite) basic.merge(self, t, overwrite) end
 --- @return boolean - true if both are equals, other else false
 function table:equals(t) return basic.equals(self, t) end
 
+--- Obtain the size of the table. As the lua has no simple way to get the lengh of, this
+--- implementation use the count of all pairs inside that.
+---
+--- This function compare unically the number of pairs inside the tables, ignoring
+--- completally the overload that it should have received.
+---
+--- @usage
+---   local table = require "ptable"
+---   local tbl = table({a = 1, b = 2, c = 3})
+---   local size = tbl:size() -- it must return 3
+---
+---@return integer - the size of the table
 function table:size() return basic.size(self) end
 
+---Returns a printable multiline string that map all pairs stored inse this table
+---
+--- @usage
+---   local table = require "ptable"
+---   local tbl = table({a = 1, b = 2, c = 3})
+---   local str = tbl:tostring() -- it must return the printable string
+---
+---@return string - the printable multiline string
 function table:tostring() return basic.tostring(self) end
 
+---Obtains the table keyset.
+---
+--- This function compare unically the data mapped in pairs inside the tables, ignoring
+--- completally the overload that it should have received.
+---
+--- @usage
+---   local table = require "ptable"
+---   local tbl   = table({a = 1, b = 2, c = 3})
+---   local keys  = tbl:keys() -- it must return {a, b, c}
+---
+---@return table - A table with the keyset
 function table:keys() return keyvalue.keys(self) end
 
+---Obtains the table values list.
+---
+--- This function compare unically the data mapped in pairs inside the tables, ignoring
+--- completally the overload that it should have received.
+---
+--- @usage
+---   local table = require "ptable"
+---   local tbl   = table({a = 1, b = 2, c = 3})
+---   local keys  = tbl:values() -- it must return {1, 2, 3}
+---
+---@return table - A table with the values list
 function table:values() return keyvalue.values(self) end
 
 function table:each(fn, ...) return each.each(self, fn, ...) end
