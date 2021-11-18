@@ -14,7 +14,7 @@ local function size(t)
     assertion.Table(t, helper.function_name())
 
     local i = 0
-    for k in pairs(t) do i = i + 1 end
+    for _ in pairs(t) do i = i + 1 end
     return i
 end
 
@@ -114,7 +114,7 @@ local string_parts = {
 ---tostring function that returns a string representation of the given table
 ---@param t table the table to be converted to string
 ---@param tab string the number of tabs (2 spaces each one)
----@return string - the table converted to string 
+---@return string - the table converted to string
 local function tostring(t, tab)
     assertion.Table(t, helper.function_name())
 
@@ -124,9 +124,9 @@ local function tostring(t, tab)
     local i = 2
 
     for k, v in pairs(t) do
-        if v == nil then
-            v = string_parts.NIL_VALUE
-        elseif type(v) == types.TABLE then
+        if v == nil then v = string_parts.NIL_VALUE end
+
+        if type(v) == types.TABLE then
             b[i] = format(string_parts.ITEM_STRING, tab, k,
                           tostring(v, tab .. string_parts.TABULATION))
         elseif type(v) ~= types.USER_DATA then

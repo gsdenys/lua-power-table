@@ -14,7 +14,6 @@
 --- @copyright 2021-2022
 --- @license MIT
 --- @release 1.0.0
-
 local table = table
 
 -- Add the module that provides methos to add the table inprovements through
@@ -49,7 +48,7 @@ local mt = {__index = table}
 ---   local table = require "ptable"
 ---   local tbl = table({})
 ---   tbl.void() --it'll do nothing
-function table:void() nothing.void() end
+function table.void() nothing.void() end
 
 --- Provides some informations about this library.
 ---
@@ -59,7 +58,7 @@ function table:void() nothing.void() end
 ---   tbl.info() --it'll return the information in string format
 ---
 --- @return string - the library informations
-function table:info() return nothing.info() end
+function table.info() return nothing.info() end
 
 --- Get element based on a given key. The value returne always is a
 --- table element or nil (in case of key is not present in the table).
@@ -80,7 +79,7 @@ function table:get(key) return basic.get(self, key) end
 ---   local tbl = table({a = 1, b = 2, c = 3})
 ---   local clone = tbl:clone() -- it should return a new table equals the tbl
 ---
----@return table - the new created table 
+---@return table - the new created table
 function table:clone() return basic.clone(self) end
 
 --- Merge this table with another one. There are two types of merging, the first one,
@@ -226,5 +225,5 @@ function table:iterator() return iterator(self) end
 
 -- use setmetatable function to overload methods to this table
 return setmetatable(table, {
-    __call = function(t, ...) return helper.new_table(mt, ...) end
+    __call = function(...) return helper.new_table(mt, ...) end
 })
