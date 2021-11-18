@@ -2,6 +2,16 @@ local types = require "ptable.utils.types"
 
 local helper = {}
 
+
+-- Parameter to be used in the reflection and make reference to the obtention of
+-- function name.
+local PARAMETER_NAME = "n"
+
+-- Parameter to be used in the reflection and make reference to the obtention of
+-- thread stack.
+local STACK_NUMBER = 2
+
+
 ---Create a new table adding the functions passed by paramenter to the
 -- created table
 ---@param mt any
@@ -16,5 +26,10 @@ function helper.new_table(mt, ...)
 
     return setmetatable(t, mt)
 end
+
+function helper.function_name()
+    return debug.getinfo(STACK_NUMBER, PARAMETER_NAME).name
+end
+
 
 return helper

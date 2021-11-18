@@ -1,12 +1,14 @@
 local TABLE_NAME = "ptable"
 local assertion = require "ptable.assertion"
 
+-- add helper module to possibilitate to get the executed function name
+local helper = require "ptable.utils.helper"
+
 ---get_keys function to get the keys stored in a keys set
 ---@param t any the table
 ---@return table - the keyset
 local function get_keys(t)
-    local FUNCTION_NAME = debug.getinfo(1, "n").name
-    assertion.Table(t, FUNCTION_NAME)
+    assertion.Table(t, helper.function_name())
 
     local keyset = {}
     local index = 1
@@ -23,8 +25,7 @@ end
 ---@param t any the table
 ---@return table - the keyset
 local function get_values(t)
-    local FUNCTION_NAME = debug.getinfo(1, "n").name
-    assertion.Table(t, FUNCTION_NAME)
+    assertion.Table(t, helper.function_name())
 
     local valueset = {}
     local index = 1

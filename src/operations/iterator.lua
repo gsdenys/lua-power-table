@@ -6,7 +6,6 @@
 --- @copyright 2021-2022
 --- @license MIT
 --- @release 1.0.0
-
 local iterator = {}
 
 -- add the assertion module to do not allow not permited execution. Sometimes it can
@@ -16,6 +15,9 @@ local assertion = require "ptable.assertion"
 -- add messages module to use together assert to output the correct error message
 local messages = require "ptable.utils.messages"
 
+-- add helper module to possibilitate to get the executed function name
+local helper = require "ptable.utils.helper"
+
 ---Obtain the key for the actual iteration. Before first and after the last iteration
 ---the result will be every nil.
 ---
@@ -24,24 +26,24 @@ local messages = require "ptable.utils.messages"
 ---   local tbl   = table({a = 1, b = 2, c = 3})
 ---   local it    = tbl:iterator()
 ---
----   it:next() -- the first iteration to point counter to the first pairs element
+---   it:next() -- perform iteration to point counter to the first pairs element
 ---   it:key()  -- it'll return 'a'
 ---
 ---@return any - the actual key
 function iterator:key()
     -- return nill before the first itertion
-    if self.it == 0 then return nil end
+    if self.iteration == 0 then return nil end
 
     -- return nil after the last iteration
-    if self.it > #self.keys then return nil end
+    if self.iteration > #self.keys then return nil end
 
     -- case the table has keys (key - value) return the key.
-    if #self.keys > 0 then return self.keys[self.it] end
+    if #self.keys > 0 then return self.keys[self.iteration] end
 
     -- return the key. in this case this is not performed over the key - value table and
     -- we'll get the count of iteration that results in the array position where the data
     -- is storage
-    return self.it
+    return self.iteration
 end
 
 ---Obtain the value for the actual iteration. Before first and after the last iteration
@@ -52,8 +54,8 @@ end
 ---   local tbl   = table({a = 1, b = 2, c = 3})
 ---   local it    = tbl:iterator()
 ---
----   it:next() -- the first iteration to point counter to the first pairs element
----   it:value()  -- it'll return '1'
+---   it:next()  -- perform iteration to point counter to the first pairs element
+---   it:value() -- it'll return '1'
 ---
 ---@return any - the actual key
 function iterator:value()
@@ -64,42 +66,46 @@ function iterator:value()
     if key == nil then return nil end
 
     -- returns the value of the actual iterator
-    return self.t[self:key()]
+    return self.t[key]
 end
 
---- verify if the iterator has next element
+--- Check if the iterator has the next element.
+---
+--- @usage
+---   local table = require "ptable"
+---   local tbl   = table({a = 1, b = 2, c = 3})
+---   local it    = tbl:iterator()
+---
+---   it:hasnext() -- it'll return true
+---
 ---@return boolean - true if has next, other else false
 function iterator:hasNext()
-    if #self.keys > 0 then return self.it < #self.keys end
+    if #self.keys > 0 then return self.iteration < #self.keys end
     return false
 end
 
 ---iterate to the next element. in case of iterate more then the numbers
 ---of elements you'll receive an array index out of bound exception
 function iterator:next()
-    assertion.True("iterator.next", messages.ARRAY_INDEX_OUT_OF_BOUND,
-                   #self.keys > self.it)
+    assertion.True(helper.function_name(), messages.ARRAY_INDEX_OUT_OF_BOUND,
+                   #self.keys > self.iteration)
 
-    self.it = self.it + 1
+    self.iteration = self.iteration + 1
+
+    return self:key(), self:value()
 end
-
-function iterator:remove()
-    
-end
-
 
 ---Factory to create the iterator
 ---@param t any theorder table
 ---@return table - the iterator
 return function(t)
-    local FUNCTION_NAME = debug.getinfo(1, "n").name
-    assertion.Table(t, FUNCTION_NAME)
+    assertion.Table(t, helper.function_name())
 
     local iter = iterator
 
     iter.t = t
     iter.keys = t:keys()
-    iter.it = 0
+    iter.iteration = 0
 
     return iter
 end
