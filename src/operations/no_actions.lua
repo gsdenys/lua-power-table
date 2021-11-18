@@ -1,4 +1,3 @@
----print library information
 local function info()
     print [[
        lua-power-table [
