@@ -1,37 +1,69 @@
+--- This module is an iterator that knows how to access items from the table, one at a time,
+--- keeping track of the current position in a given sequence.
 ---
 --- @module iterator
 --- @author Denys G. Santos
 --- @copyright 2021-2022
 --- @license MIT
 --- @release 1.0.0
----
-
-local assertion = require "ptable.assertion"
-local messages = require "ptable.utils.messages"
 
 local iterator = {}
 
----Return the actual key. Before first  and after the last iteration
----the result of this method will be nil
+-- add the assertion module to do not allow not permited execution. Sometimes it can
+-- generate an output error.
+local assertion = require "ptable.assertion"
+
+-- add messages module to use together assert to output the correct error message
+local messages = require "ptable.utils.messages"
+
+---Obtain the key for the actual iteration. Before first and after the last iteration
+---the result will be every nil.
+---
+--- @usage
+---   local table = require "ptable"
+---   local tbl   = table({a = 1, b = 2, c = 3})
+---   local it    = tbl:iterator()
+---
+---   it:next() -- the first iteration to point counter to the first pairs element
+---   it:key()  -- it'll return 'a'
+---
 ---@return any - the actual key
 function iterator:key()
+    -- return nill before the first itertion
     if self.it == 0 then return nil end
 
+    -- return nil after the last iteration
     if self.it > #self.keys then return nil end
 
+    -- case the table has keys (key - value) return the key.
     if #self.keys > 0 then return self.keys[self.it] end
 
+    -- return the key. in this case this is not performed over the key - value table and
+    -- we'll get the count of iteration that results in the array position where the data
+    -- is storage
     return self.it
 end
 
----Return the actual value. Before first  and after the last iteration
----the result of this method will be nil.
+---Obtain the value for the actual iteration. Before first and after the last iteration
+---the result will be every nil.
+---
+--- @usage
+---   local table = require "ptable"
+---   local tbl   = table({a = 1, b = 2, c = 3})
+---   local it    = tbl:iterator()
+---
+---   it:next() -- the first iteration to point counter to the first pairs element
+---   it:value()  -- it'll return '1'
+---
 ---@return any - the actual key
 function iterator:value()
+    -- get the actual key
     local key = self:key()
 
+    -- in case of before first call and after last return nill
     if key == nil then return nil end
 
+    -- returns the value of the actual iterator
     return self.t[self:key()]
 end
 
@@ -50,6 +82,11 @@ function iterator:next()
 
     self.it = self.it + 1
 end
+
+function iterator:remove()
+    
+end
+
 
 ---Factory to create the iterator
 ---@param t any theorder table
