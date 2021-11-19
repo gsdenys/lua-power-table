@@ -26,11 +26,19 @@ jobs:
       - name: Install LuaRocks
         uses: leafo/gh-actions-luarocks@v4.0.0
       
-      - name: Install this library
-        run: luarocks make
-      
       - name: Run Luacheck
         uses: RagedUnicorn/action-luacheck@v1.0.0
+      
+      - name: Setup 
+        run: |
+          luarocks install busted
+          luarocks make
+          
+      - name: Test
+        run: |
+          busted -o utfTerminal
+      
+      
         
       
         
