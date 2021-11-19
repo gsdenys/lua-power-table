@@ -34,7 +34,7 @@ jobs:
           # Command line flags passed to make when building Lua
                    
       - name: Install LuaRocks
-        run: apt install luarocks
+        run: sudo apt install luarocks
 #         uses: leafo/gh-actions-luarocks@v4.0.0
       
       - name: install this library
