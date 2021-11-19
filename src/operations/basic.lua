@@ -124,16 +124,20 @@ local function tostring(t, tab)
     local i = 2
 
     for k, v in pairs(t) do
-        if v == nil then v = string_parts.NIL_VALUE end
+        local value_type = type(v)
 
-        if type(v) == types.TABLE then
-            b[i] = format(string_parts.ITEM_STRING, tab, k,
-                          tostring(v, tab .. string_parts.TABULATION))
-        elseif type(v) ~= types.USER_DATA then
-            b[i] = format(string_parts.ITEM_STRING, tab, k, v)
+        if value_type ~= types.FUNCTION then
+            if v == nil then v = string_parts.NIL_VALUE end
+
+            if value_type == types.TABLE then
+                local table_str = tostring(v, tab .. string_parts.TABULATION)
+                b[i] = format(string_parts.ITEM_STRING, tab, k, table_str)
+            elseif value_type ~= types.USER_DATA then
+                b[i] = format(string_parts.ITEM_STRING, tab, k, v)
+            end
+
+            i = i + 1
         end
-
-        i = i + 1
     end
 
     b[i] = (tab .. string_parts.CLOSE_BRACKETS):sub(3)

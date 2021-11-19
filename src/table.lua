@@ -225,5 +225,5 @@ function table:iterator() return iterator(self) end
 
 -- use setmetatable function to overload methods to this table
 return setmetatable(table, {
-    __call = function(...) return helper.new_table(mt, ...) end
+    __call = function(t, ...) return helper.new_table(mt, ...) end
 })
