@@ -27,8 +27,6 @@ jobs:
 
       # setup Lua/LuaJIT
       - name: Install Lua/LuaJIT
-        # You may pin to the exact commit or the version.
-        # uses: leafo/gh-actions-lua@ea0ae38722c0b45aa4e770f7c4a650c6b26800d0
         uses: leafo/gh-actions-lua@v8.0.0
         with:
           # The version of Lua to install, must be available on https://www.lua.org/ftp/ or http://luajit.org/download.html
@@ -39,20 +37,16 @@ jobs:
         # You may pin to the exact commit or the version.
         # uses: leafo/gh-actions-luarocks@218573cd14f9a47b079c9b89349f9b71cb5ee706
         uses: leafo/gh-actions-luarocks@v4.0.0
-        
+      
+      - name: install this library
+        run: luarocks make
+      
       - name: Luacheck for lua codebases
         # You may pin to the exact commit or the version.
         # uses: RagedUnicorn/action-luacheck@94ee053798fc676fd66bb36d541d855ed3c2daf1
         uses: RagedUnicorn/action-luacheck@v1.0.0
         with:
-          # A list of files or directories to apply luacheck to. Defaults to the working directory from `path`.
-
           files: . # optional, default is .
-          # Working directory for luacheck. The file list should be relative to this path. Defaults to the `github.workspace` path.
-
-#           workspace: # optional, default is ${{ github.workspace }}
-          # Additional command-line arguments. See https://luacheck.readthedocs.io/en/stable/cli.html
-
-#           args: # optional
+        
         
       
