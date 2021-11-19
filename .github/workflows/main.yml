@@ -25,10 +25,6 @@ jobs:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v2
 
-      # Runs a single command using the runners shell
-      - name: Run a one-line script
-        run: echo Hello, world!
-
       # setup Lua/LuaJIT
       - name: Install Lua/LuaJIT
         # You may pin to the exact commit or the version.
@@ -38,6 +34,15 @@ jobs:
           # The version of Lua to install, must be available on https://www.lua.org/ftp/ or http://luajit.org/download.html
           luaVersion: 5.1 # optional, default is 5.4
           # Command line flags passed to make when building Lua
+          
+      - name: WoW Lua Lint
+      # You may pin to the exact commit or the version.
+      # uses: davidcraig/a  ction-wow-lint@e049cf3202b7722a2f505dc59de6d69ff324a037
+        uses: davidcraig/actio  n-wow-lint@v1.0.1
+        with:
+          # Path of files to lint
+          path-to-files: ./
+
           
       - name: Install LuaRocks
         # You may pin to the exact commit or the version.
