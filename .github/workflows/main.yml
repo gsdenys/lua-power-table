@@ -48,5 +48,19 @@ jobs:
         with:
           files: . # optional, default is .
         
-        
+      - name: Mineunit runner
+        # You may pin to the exact commit or the version.
+        # uses: mt-mods/mineunit-actions@c439382a0fbd5a3b7b82dd7db4097e3cc87feba8
+        uses: mt-mods/mineunit-actions@v0.3
+#         with:
+          # Working directory for unit tests
+#           working-directory: # default is .
+          # Code coverage badge name
+#           badge-name: # default is coverage
+          # Code coverage badge label
+#           badge-label: # default is Test coverage
+          # Code coverage badge color
+#           badge-color: # default is 99CC09
+          # Mineunit version
+#           mineunit-version: # optional
       
