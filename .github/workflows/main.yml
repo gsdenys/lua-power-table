@@ -34,9 +34,8 @@ jobs:
           # Command line flags passed to make when building Lua
                    
       - name: Install LuaRocks
-        # You may pin to the exact commit or the version.
-        # uses: leafo/gh-actions-luarocks@218573cd14f9a47b079c9b89349f9b71cb5ee706
-        uses: leafo/gh-actions-luarocks@v4.0.0
+        run: apt install luarocks
+#         uses: leafo/gh-actions-luarocks@v4.0.0
       
       - name: install this library
         run: luarocks make
@@ -48,10 +47,6 @@ jobs:
         with:
           files: . # optional, default is .
         
-      - name: Mineunit runner
-        uses: mt-mods/mineunit-actions@master
-        with:
-          # Working directory for unit tests
-          working-directory: . # default is .
+     
 
       
