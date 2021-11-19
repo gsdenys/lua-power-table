@@ -34,19 +34,25 @@ jobs:
           # The version of Lua to install, must be available on https://www.lua.org/ftp/ or http://luajit.org/download.html
           luaVersion: 5.1 # optional, default is 5.4
           # Command line flags passed to make when building Lua
-          
-      - name: WoW Lua Lint
-      # You may pin to the exact commit or the version.
-      # uses: davidcraig/a  ction-wow-lint@e049cf3202b7722a2f505dc59de6d69ff324a037
-        uses: davidcraig/actio  n-wow-lint@v1.0.1
-        with:
-          # Path of files to lint
-          path-to-files: ./
-
-          
+                   
       - name: Install LuaRocks
         # You may pin to the exact commit or the version.
         # uses: leafo/gh-actions-luarocks@218573cd14f9a47b079c9b89349f9b71cb5ee706
         uses: leafo/gh-actions-luarocks@v4.0.0
+        
+      - name: Luacheck for lua codebases
+        # You may pin to the exact commit or the version.
+        # uses: RagedUnicorn/action-luacheck@94ee053798fc676fd66bb36d541d855ed3c2daf1
+        uses: RagedUnicorn/action-luacheck@v1.0.0
+        with:
+          # A list of files or directories to apply luacheck to. Defaults to the working directory from `path`.
+
+          files: . # optional, default is .
+          # Working directory for luacheck. The file list should be relative to this path. Defaults to the `github.workspace` path.
+
+#           workspace: # optional, default is ${{ github.workspace }}
+          # Additional command-line arguments. See https://luacheck.readthedocs.io/en/stable/cli.html
+
+#           args: # optional
         
       
