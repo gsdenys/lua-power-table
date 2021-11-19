@@ -1,4 +1,4 @@
-name: unit-test
+name: quality-pattern
 
 on:
   push:
@@ -29,14 +29,14 @@ jobs:
       - name: Run Luacheck
         uses: RagedUnicorn/action-luacheck@v1.0.0
       
-      # - name: Setup 
-      #   run: |
-      #     luarocks install busted
-      #     luarocks make
+      - name: Setup 
+        run: |
+          luarocks install busted
+          luarocks make
           
-      # - name: Test
-      #   run: |
-      #     busted -o utfTerminal
+      - name: Test
+        run: |
+          busted -o utfTerminal --coverage
       
       
         
