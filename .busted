@@ -3,8 +3,8 @@ return {
     coverage = true,
     loaders = { 'lua' },
     output = 'utfTerminal',
-    pattern = '.spec.lua',
-    ROOT = { '.' },
+    pattern = '_spec.lua',
+    ROOT = { 'spec' },
     verbose = true
   }
 }
