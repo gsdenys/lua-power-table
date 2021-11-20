@@ -25,6 +25,7 @@ jobs:
         run: |
           luarocks install busted
           luarocks install luacov-cobertura
+          luarocks install https://raw.githubusercontent.com/tarantool/luacov-reporters/master/luacov-reporters-scm-1.rockspec
 
       - name: Install this module
         run: |
