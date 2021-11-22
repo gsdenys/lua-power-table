@@ -76,7 +76,7 @@ jobs:
       
       - name: Run Unity Test
         run: |
-          busted -o utfTerminal
+          busted --coverage -o utfTerminal
 
       - name: Generate cobertura
         run: |
