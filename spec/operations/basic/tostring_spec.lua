@@ -10,8 +10,8 @@ describe("[tostring]", function()
         local str = empty_table:tostring()
 
         it("should not be nil", function() assert.is_not.Nil(str) end)
-
-        it("should not be empty", function() assert.is_not.equal(#str, 0) end)
+        it("should not be an empty string",
+           function() assert.is_not.equal(#str, 0) end)
 
         it("should be " .. response, function()
             assert.equal(response, str)
@@ -26,11 +26,10 @@ describe("[tostring]", function()
         local str = table_with_pairs:tostring()
 
         it("should not be nil", function() assert.is_not.Nil(str) end)
-
         it("should not be empty", function() assert.is_not.equal(#str, 0) end)
 
-        it("should be " .. response, function()
-            assert.equal(response, str)
+        it("Should have same size", function()
+            assert.equal(#response, #str)
         end)
     end)
 
@@ -42,11 +41,12 @@ describe("[tostring]", function()
         local str = table_with_numbers:tostring()
 
         it("should not be nil", function() assert.is_not.Nil(str) end)
+        it("should not be an empty", function()
+            assert.is_not.equal(#str, 0)
+        end)
 
-        it("should not be empty", function() assert.is_not.equal(#str, 0) end)
-
-        it("should be " .. response, function()
-            assert.equal(response, str)
+        it("Should have same siz", function()
+            assert.equal(#response, #str)
         end)
     end)
 
@@ -62,9 +62,8 @@ describe("[tostring]", function()
 
         it("should not be empty", function() assert.is_not.equal(#str, 0) end)
 
-        it("should be " .. response, function()
-            assert.equal(response, str)
-        end)
+        it("should be " .. response,
+           function() assert.equal(#response, #str) end)
     end)
 
     describe("table with word", function()
@@ -79,7 +78,7 @@ describe("[tostring]", function()
         it("should not be empty", function() assert.is_not.equal(#str, 0) end)
 
         it("should be " .. response, function()
-            assert.equal(response, str)
+            assert.equal(#response, #str)
         end)
     end)
 end)
