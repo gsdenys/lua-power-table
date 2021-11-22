@@ -35,7 +35,7 @@ jobs:
       - name: Install dependencies
         run: |
           luarocks install busted
-          #luarocks install luacov-cobertura
+          # luarocks install luacov
           # luarocks install https://raw.githubusercontent.com/tarantool/luacov-reporters/master/luacov-reporters-scm-1.rockspec
 
       - name: Run Luacheck for linting
@@ -47,6 +47,7 @@ jobs:
 
   coverage:
     name: Coverage
+    needs: test
 
     runs-on: ubuntu-latest    
 
@@ -70,6 +71,7 @@ jobs:
       - name: Install dependencies
         run: |
           luarocks install busted
+          luarocks install luacov
           luarocks install luacov-coveralls
       
       - name: Run Unity Test
