@@ -1,4 +1,4 @@
-name: quality-pattern
+name: quality-assurance
 on:
   push:
     branches: [ main ]
@@ -91,25 +91,6 @@ jobs:
           luarocks install busted
           luarocks install luacov
           luarocks install luacov-reporter-lcov
-
-      
-      # - name: Run Unity Test
-      #   run: |
-      #     busted --coverage -o utfTerminal
-
-      # - name: Generate cobertura
-      #   run: |
-      #     luacov-coveralls --dryrun > lcov.info
-
-      # - name: Coveralls GitHub Action
-      #   uses: coverallsapp/github-action@1.1.3
-      #   with:
-      #     github-token:  ${{ secrets.GITHUB_TOKEN }} 
-      #     path-to-lcov: lcov.info # default is ./coverage/lcov.info
-
-
-
-      
           
       - name: Test
         run: |
