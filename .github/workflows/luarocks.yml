@@ -1,0 +1,79 @@
+name: luarocks
+
+on:
+  release:
+    types: [published]
+
+jobs:
+  test:
+    name: "Unit Test"
+    needs: lint
+
+    strategy:
+      fail-fast: false
+      matrix:
+        luaVersion: ["5.1", "5.2", "5.3", "5.4", "luajit"]
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+
+      - name: Install Lua
+        uses: leafo/gh-actions-lua@v8.0.0
+        with:
+          luaVersion: ${{ matrix.luaVersion }}
+                   
+      - name: Install LuaRocks
+        uses: leafo/gh-actions-luarocks@v4.0.0
+      
+      - name: Install this module
+        run: |
+          luarocks make
+
+      - name: Install dependencies
+        run: |
+          luarocks install busted
+          luarocks install luacov
+
+      - name: Run Unity Test
+        run: |
+          busted -o utfTerminal
+  
+  publish:
+    name: "Publish to Luarocks"
+    needs: test
+
+    strategy:
+      fail-fast: false
+      matrix:
+        luaVersion: ["5.1", "5.2", "5.3", "5.4", "luajit"]
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+
+      - name: Extract tag name
+        id: tag
+        uses: actions/github-script@0.2.0
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            return context.payload.ref.replace(/\/refs\/tags\//, '');
+
+      - name: Install Lua
+        uses: leafo/gh-actions-lua@v8.0.0
+        with:
+          luaVersion: ${{ matrix.luaVersion }}
+                   
+      - name: Install LuaRocks
+        uses: leafo/gh-actions-luarocks@v4.0.0
+
+      - name: Publish to luarocks
+        run: |
+          luarocks upload power-table-${{ steps.tag.outputs.result }}.rockspec --api-key=${{ secrets.LUAROCKS_TOKEN }}
