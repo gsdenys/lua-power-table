@@ -57,6 +57,7 @@ jobs:
       - name: Install dependencies
         run: |
           luarocks install busted
+          luarocks install luacov
 
       - name: Run Unity Test
         run: |
