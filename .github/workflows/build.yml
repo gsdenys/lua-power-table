@@ -90,7 +90,6 @@ jobs:
           luarocks install busted
           luarocks install luacov
           luarocks install luacov-reporter-lcov
-          luarocks install lua-cjson
           
       - name: Test
         run: |
