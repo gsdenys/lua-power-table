@@ -7,7 +7,6 @@ on:
 jobs:
   test:
     name: "Unit Test"
-    needs: lint
 
     strategy:
       fail-fast: false
@@ -45,11 +44,6 @@ jobs:
   publish:
     name: "Publish to Luarocks"
     needs: test
-
-    strategy:
-      fail-fast: false
-      matrix:
-        luaVersion: ["5.1", "5.2", "5.3", "5.4", "luajit"]
 
     runs-on: ubuntu-latest
 
