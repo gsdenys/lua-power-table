@@ -52,14 +52,6 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: Extract tag name
-        id: tag
-        uses: actions/github-script@0.2.0
-        with:
-          github-token: ${{ secrets.GITHUB_TOKEN }}
-          script: |
-            return context.payload.ref.replace(/\/refs\/tags\//, '');
-
       - name: Install Lua
         uses: leafo/gh-actions-lua@v8.0.0
         with:
@@ -70,4 +62,4 @@ jobs:
 
       - name: Publish to luarocks
         run: |
-          luarocks upload power-table-${{ steps.tag.outputs.result }}.rockspec --api-key=${{ secrets.LUAROCKS_TOKEN }}
+          luarocks upload power-table-${{ github.ref }}.rockspec --api-key=${{ secrets.LUAROCKS_TOKEN }}
