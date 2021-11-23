@@ -57,12 +57,12 @@ jobs:
         with:
           luaVersion: "5.1"
 
+      - name: Install LuaRocks
+        uses: leafo/gh-actions-luarocks@v4.0.0
+
       - name: Install dependencies
         run: |
           luarocks install lua-cjson
-
-      - name: Install LuaRocks
-        uses: leafo/gh-actions-luarocks@v4.0.0
 
       - name: Branch name
         id: branch_name
