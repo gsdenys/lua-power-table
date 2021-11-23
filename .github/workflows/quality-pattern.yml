@@ -99,13 +99,13 @@ jobs:
       - name: Generate cobertura
         run: |
           luacov
-          luacov-coveralls --dryrun > lcov.info
+          luacov-coveralls -t ${{ secrets.COVERALLS_TOKEN }}
 
-      - name: Coveralls GitHub Action
-        uses: coverallsapp/github-action@1.1.3
-        with:
-          github-token:  ${{ secrets.GITHUB_TOKEN }} 
-          path-to-lcov: lcov.info # default is ./coverage/lcov.info
+      # - name: Coveralls GitHub Action
+      #   uses: coverallsapp/github-action@1.1.3
+      #   with:
+      #     github-token:  ${{ secrets.GITHUB_TOKEN }} 
+      #     path-to-lcov: lcov.info # default is ./coverage/lcov.info
       #     # Job flag name, e.g. "Unit", "Functional", or "Integration". Will be shown in the Coveralls UI.
       #     #flag-name: # optional
       #     # Set to true if you are running parallel jobs, then use "parallel_finished: true" for the last action.
