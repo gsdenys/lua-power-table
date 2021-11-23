@@ -1,4 +1,4 @@
-name: quality-assurance
+name: build
 on:
   push:
     branches: [ main ]
@@ -6,7 +6,7 @@ on:
     types: [opened, synchronize, reopened]
 jobs:
   lint:
-    name: Luacheck
+    name: Luacheck for linting
   
     runs-on: ubuntu-latest
 
@@ -22,9 +22,6 @@ jobs:
 
       - name: Run Luacheck for linting
         uses: RagedUnicorn/action-luacheck@v1.0.0
-
-      - name: Install LuaRocks
-        uses: leafo/gh-actions-luarocks@v4.0.0
 
   test:
     name: "Unit Test"
