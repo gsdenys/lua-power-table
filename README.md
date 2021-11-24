@@ -8,6 +8,26 @@
 
 A table extension for lua
 
+## Usage
+
+As this is a general propose tale extention you can it import locally or globaly. Follow command bellow to know how to use it.
+
+```lua
+local table = require "ptable"
+local tbl = table({})
+
+tbl.info() 
+```
+
+For more methods documentation go to the [documentation page](https://gsdenys.github.io/lua-power-table)
+
+### Documentation
+
+To generate documentation use the command below. Then push them to this repo. So, it'll be rendered at the page [https://gsdenys.github.io/lua-power-table/](https://gsdenys.github.io/lua-power-table/).
+
+```bash
+ldoc . -d docs/
+```
 
 ## License
 
