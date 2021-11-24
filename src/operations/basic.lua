@@ -105,12 +105,14 @@ end
 ---Remove elements passed by parametre from table
 ---@param t any the table that want to remove elements
 local function delete_element(t, ...)
+    local args = {...}
+
     assertion.Table(arg, helper.function_name())
 
-    for _, v in ipairs(arg) do
+    for k, v in ipairs(args) do
         if type(v) == types.NUMBER then
             t:remove(v)
-        else
+        elseif(k ~= "n") then
             t[v] = nil
         end
     end

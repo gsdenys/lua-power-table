@@ -36,12 +36,12 @@ describe("[Delete]", function()
     end)
 
     describe("In a simple table when try delete first element,", function()
-        local tbl = table({4, 5, 6})
+        local t = table({4, 5, 6})
 
-        tbl:del(1)
+        t:del(1)
 
         it("the size of the table should be 2",
-           function() assert.equals(2, tbl:size()) end)
+           function() assert.equals(2, t:size()) end)
     end)
 
     describe("In a simple table, when try delete 2 element,", function()
