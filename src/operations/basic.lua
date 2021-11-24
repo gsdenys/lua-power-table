@@ -107,7 +107,7 @@ end
 local function delete_element(t, ...)
     local args = {...}
 
-    assertion.Table(arg, helper.function_name())
+    assertion.Table(args, helper.function_name())
 
     for k, v in ipairs(args) do
         if type(v) == types.NUMBER then
