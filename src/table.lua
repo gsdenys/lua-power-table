@@ -223,6 +223,16 @@ function table:eachi(fn, ...) each.eachi(self, fn, ...) end
 --- @return any - the iterator object
 function table:iterator() return iterator(self) end
 
+--- Remove the all elements passed by paramenter to this table
+---
+--- @usage
+---   local table = require "ptable"
+---   local tbl   = table({a = 1, b = 2, c = 3})
+---   tbl:remove(a, b) -- the table will be {c = 3}
+---@diagnostic disable-next-line: undefined-doc-param
+--- @param arg any the list of elements to be deleted
+function table:del(...) basic.delete_element(self, ...) end
+
 -- use setmetatable function to overload methods to this table
 return setmetatable(table, {
     __call = function(t, ...) return helper.new_table(mt, ...) end

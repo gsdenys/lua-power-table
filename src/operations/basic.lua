@@ -3,6 +3,7 @@ local assertion = require "ptable.assertion"
 
 -- add helper module to possibilitate to get the executed function name
 local helper = require "ptable.utils.helper"
+local messages = require "ptable.utils.messages"
 
 local format = string.format
 local concat = table.concat
@@ -102,6 +103,20 @@ local function merge(t, tbl, overwrite)
     end
 end
 
+---Remove elements passed by parametre from table
+---@param t any the table that want to remove elements
+local function delete_element(t, ...)
+    assertion.Table(arg, helper.function_name())
+
+    for k, v in ipairs(arg) do
+        if type(v) == types.NUMBER then
+            t:remove(v)
+        else
+            t[v] = nil
+        end
+    end
+end
+
 local string_parts = {
     NIL_VALUE = '',
     TABULATION = "  ",
@@ -152,5 +167,6 @@ return {
     clone = clone,
     equals = equals,
     merge = merge,
+    delete_element = delete_element,
     tostring = tostring
 }

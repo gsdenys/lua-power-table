@@ -1,7 +1,7 @@
 package = "power-table"
-version = "1.0.0-1"
+version = "1.0.1-1"
 
-source = {url = "git://github.com/gsdenys/lua-power-table", tag = "1.0.0-1"}
+source = {url = "git://github.com/gsdenys/lua-power-table", tag = "1.0.1-1"}
 
 description = {
     summary = "A lua library to improve table functionality",
