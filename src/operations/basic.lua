@@ -3,7 +3,6 @@ local assertion = require "ptable.assertion"
 
 -- add helper module to possibilitate to get the executed function name
 local helper = require "ptable.utils.helper"
-local messages = require "ptable.utils.messages"
 
 local format = string.format
 local concat = table.concat
@@ -108,7 +107,7 @@ end
 local function delete_element(t, ...)
     assertion.Table(arg, helper.function_name())
 
-    for k, v in ipairs(arg) do
+    for _, v in ipairs(arg) do
         if type(v) == types.NUMBER then
             t:remove(v)
         else
